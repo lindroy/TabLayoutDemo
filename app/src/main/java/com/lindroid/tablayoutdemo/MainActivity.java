@@ -5,8 +5,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,13 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         //设置TabLayout的模式
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
+
+        //设置分割线
+        LinearLayout linearLayout = (LinearLayout) tabLayout.getChildAt(0);
+        linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+        linearLayout.setDividerDrawable(ContextCompat.getDrawable(this,
+                R.drawable.divider)); //设置分割线的样式
+        linearLayout.setDividerPadding(dip2px(10)); //设置分割线间隔
         viewPager.setAdapter(new TabAdapter(getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
     }
@@ -69,5 +78,10 @@ public class MainActivity extends AppCompatActivity {
 //        public CharSequence getPageTitle(int position) {
 //            return tabs.get(position % tabs.size());
 //        }
+    }
+
+    public int dip2px(int dip) {
+        float density = getResources().getDisplayMetrics().density;
+        return (int) (dip * density + 0.5);
     }
 }
