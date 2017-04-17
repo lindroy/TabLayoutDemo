@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -8,17 +9,18 @@
     tools:context="com.lindroid.tablayoutdemo.MainActivity">
 
     <android.support.design.widget.TabLayout
-        android:id="@+id/ty_main"
+        android:id="@+id/tayLayout"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
-
-    </android.support.design.widget.TabLayout>
+        android:layout_height="60dp"
+        app:tabIndicatorColor="#49dd12"
+        app:tabSelectedTextColor="#49dd12"
+        app:tabTextColor="@android:color/darker_gray"/>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/vp_main"
-        android:layout_weight="1"
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
     </android.support.v4.view.ViewPager>
 </LinearLayout>

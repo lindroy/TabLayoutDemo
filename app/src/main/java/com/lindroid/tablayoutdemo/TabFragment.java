@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 public class TabFragment extends Fragment {
     private Context context;
-    private String content;
+    private String content; //Fragment的显示内容
     public TabFragment() {
 
     }
