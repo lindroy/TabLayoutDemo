@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +26,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        tabs.add("新消息");
-        tabs.add("朋友圈");
-        tabs.add("公众号");
+        tabs.add("新消息" + "\n" + 999);
+        tabs.add("朋友圈" + "\n" + 99);
+        tabs.add("公众号" + "\n" + 9);
         fragments.add(new TabFragment(this,tabs.get(0)));
         fragments.add(new TabFragment(this,tabs.get(1)));
         fragments.add(new TabFragment(this,tabs.get(2)));
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tayLayout);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         //设置TabLayout的模式
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
         viewPager.setAdapter(new TabAdapter(getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
     }
@@ -63,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         //显示标签上的文字
         @Override
         public CharSequence getPageTitle(int position) {
-            Log.e("Tag","position="+position);
             return tabs.get(position);
         }
 
