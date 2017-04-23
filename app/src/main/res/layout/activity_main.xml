@@ -12,11 +12,11 @@
         android:id="@+id/tayLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        app:tabTextAppearance="@style/TabTextSize"
         app:tabIndicatorColor="#49dd12"
-        app:tabSelectedTextColor="#49dd12"
-        app:tabTextColor="@android:color/darker_gray"/>
-
+        />
+    <!--app:tabTextAppearance="@style/TabTextSize"-->
+    <!--app:tabSelectedTextColor="#49dd12"-->
+    <!--app:tabTextColor="@android:color/darker_gray"-->
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"

@@ -8,7 +8,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,9 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private List<Fragment> fragments = new ArrayList<>();
-    private List<String> tabs = new ArrayList<>();
+    private List<String> tabs = new ArrayList<>(); //标签名称
+    private List<Integer> tabNumbers = new ArrayList<>(); //信息数目
+    private ViewHolder holder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +32,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        tabs.add("新消息" + "\n" + 999);
-        tabs.add("朋友圈" + "\n" + 99);
-        tabs.add("公众号" + "\n" + 9);
+        tabs.add("新消息" );
+        tabs.add("朋友圈");
+        tabs.add("公众号");
+        tabNumbers.add(999);
+        tabNumbers.add(99);
+        tabNumbers.add(9);
         fragments.add(new TabFragment(this,tabs.get(0)));
         fragments.add(new TabFragment(this,tabs.get(1)));
         fragments.add(new TabFragment(this,tabs.get(2)));
@@ -48,8 +55,68 @@ public class MainActivity extends AppCompatActivity {
         linearLayout.setDividerDrawable(ContextCompat.getDrawable(this,
                 R.drawable.divider)); //设置分割线的样式
         linearLayout.setDividerPadding(dip2px(10)); //设置分割线间隔
+
         viewPager.setAdapter(new TabAdapter(getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
+
+        setTabView();
+    }
+
+    /**
+     * 设置Tab的样式
+     */
+    private void setTabView() {
+        holder = null;
+        for (int i = 0; i < tabs.size(); i++) {
+            //依次获取标签
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            //为每个标签设置布局
+            tab.setCustomView(R.layout.tab_item);
+            holder = new ViewHolder(tab.getCustomView());
+            //为标签填充数据
+            holder.tvTabName.setText(tabs.get(i));
+            holder.tvTabNumber.setText(String.valueOf(tabNumbers.get(i)));
+            //默认选择第一项
+            if (i == 0){
+                holder.tvTabName.setSelected(true);
+                holder.tvTabNumber.setSelected(true);
+            }
+        }
+
+        //tab选中的监听事件
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                holder = new ViewHolder(tab.getCustomView());
+                holder.tvTabName.setSelected(true);
+                holder.tvTabNumber.setSelected(true);
+                //让Viewpager跟随TabLayout的标签切换
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                holder = new ViewHolder(tab.getCustomView());
+                holder.tvTabName.setSelected(false);
+                holder.tvTabNumber.setSelected(false);
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+    class ViewHolder{
+        TextView tvTabName;
+        TextView tvTabNumber;
+
+        public ViewHolder(View tabView) {
+            tvTabName = (TextView) tabView.findViewById(R.id.tv_tab_name);
+            tvTabNumber = (TextView) tabView.findViewById(R.id.tv_tab_number);
+        }
     }
 
     class TabAdapter extends FragmentPagerAdapter{
@@ -80,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
     }
 
+    //像素单位转换
     public int dip2px(int dip) {
         float density = getResources().getDisplayMetrics().density;
         return (int) (dip * density + 0.5);
