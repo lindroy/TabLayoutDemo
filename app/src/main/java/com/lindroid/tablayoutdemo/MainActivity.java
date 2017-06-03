@@ -80,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
             if (i == 0){
                 holder.tvTabName.setSelected(true);
                 holder.tvTabNumber.setSelected(true);
+                holder.tvTabName.setTextSize(18);
+                holder.tvTabNumber.setTextSize(18);
             }
         }
 
@@ -90,8 +92,12 @@ public class MainActivity extends AppCompatActivity {
                 holder = new ViewHolder(tab.getCustomView());
                 holder.tvTabName.setSelected(true);
                 holder.tvTabNumber.setSelected(true);
+                //选中后字体变大
+                holder.tvTabName.setTextSize(18);
+                holder.tvTabNumber.setTextSize(18);
                 //让Viewpager跟随TabLayout的标签切换
                 viewPager.setCurrentItem(tab.getPosition());
+
             }
 
             @Override
@@ -99,7 +105,9 @@ public class MainActivity extends AppCompatActivity {
                 holder = new ViewHolder(tab.getCustomView());
                 holder.tvTabName.setSelected(false);
                 holder.tvTabNumber.setSelected(false);
-
+                //恢复为默认字体大小
+                holder.tvTabName.setTextSize(16);
+                holder.tvTabNumber.setTextSize(16);
             }
 
             @Override
